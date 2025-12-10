@@ -1,2 +1,21 @@
-- name: Debug Cloudflare
-  run: python gh_debug.py
+name: Cloudflare Debug
+
+on:
+  workflow_dispatch:   # manual run button
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install deps
+        run: pip install requests
+
+      - name: Run debug
+        run: python gh_debug.py
