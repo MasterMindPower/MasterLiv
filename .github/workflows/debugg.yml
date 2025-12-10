@@ -1,0 +1,2 @@
+- name: Debug Cloudflare
+  run: python gh_debug.py
