@@ -1,0 +1,26 @@
+name: LIVE AUTO UPDATE
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install
+        run: pip install cryptography requests
+
+      - name: Run encrypted job
+        env:
+          FERNET_KEY: ${{ secrets.FERNET_KEY }}
+          PUSH_TOKEN: ${{ secrets.PUSH_TOKEN }}
+          PRIVATE_REPO: ${{ secrets.PRIVATE_REPO }}
+        run: python run.py
